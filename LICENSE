@@ -1,0 +1,10 @@
+Copyright (c) 2026 Milan Zimmermann (milan.zimmermann@gmail.com; milan.zimmermann@gmx.com)
+All rights reserved.
+
+The code of this project is licenced under the GPL v.3 license published at https://www.gnu.org/licenses/gpl-3.0.html.
+
+This project invokes executables from the
+following projects
+
+1. https://github.com/christianp/asciimath2tex
+2. emacs

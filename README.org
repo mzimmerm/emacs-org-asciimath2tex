@@ -1,17 +1,27 @@
-* Purpose of emacs-org-asciimath2tex
+* TL;DR
 
-The purpose is to enable writing math formulas in asciimath in Emacs Org documents, by converting the math formulas to tex, and exporting the Org documents to tex and pdf.
+1. You have an Org file, named ~my-math-text.org~ with some math formulas written in asciimath; the formulas are delimited by backquotes like this `AA a in A`
+2. Clone or copy this project to your system, so the top directory is ~emacs-org-asciimath2tex~. Run the following commands:
+3. ~cd emacs-org-asciimath2tex~
+4. ~. ./setenv.sh~
+5. ~convert-org-with-asciimath-to-tex-or-pdf.sh my-math-text.org  pdf~
+6. Result in ~my-math-text.tex.pdf~
+
+
+* Purpose of this project, the ~emacs-org-asciimath2tex~
+
+Enable writing math formulas in asciimath in Emacs Org documents, by converting the math formulas to tex, and exporting the Org documents to tex and pdf.
 
 ** Context
 
 Asciimath can be used in Emacs Org documents. Export to HTML is supported by the , but there is currently no support of exporting Org with Asciimath to tex or pdf.
 
 
-* Core utility of this project: the ~convert-org-with-asciimath-to-tex-or-pdf.sh~
+* Core utility of this project, the script ~convert-org-with-asciimath-to-tex-or-pdf.sh~
 
-The core utility of this project is ~convert-org-with-asciimath-to-tex-or-pdf.sh~.
+The core utility of this project is the script ~convert-org-with-asciimath-to-tex-or-pdf.sh~. This script converts and exports an Org file with math formulas written in asciimath to the 'tex' and 'pdf' formats.
 
-Paragraphs below describe how to use it.
+Paragraphs below describe how to use the script.
 
 * Dependencies and prerequisits and their installation
 
@@ -71,13 +81,13 @@ Source the file ~setenv.sh~ as follows
 
 Once the setup described above is ready, we can export an org file with asciimath to tex and pdf.
 
-An org file with asciimath named ~example-file.org~ is converted to pdf by running
+An org file with asciimath named ~my-math-text.org~ is converted to pdf by running
 
 #+begin_src shell
 
    # Change directory where the ~org~ file we are converting is located.
    # The argument ~pdf~ is OPTIONAL but we want it most of the time.
-   convert-org-with-asciimath-to-tex-or-pdf.sh example-file.org  pdf
+   convert-org-with-asciimath-to-tex-or-pdf.sh my-math-text.org  pdf
 
 #+end_src
 
@@ -90,16 +100,16 @@ It also contains the sample example how to convert and export the sample file. T
 
 * What this utilitity does step by step
 
-~convert-org-with-asciimath-to-tex-or-pdf.sh~ steps:
+~convert-org-with-asciimath-to-tex-or-pdf.sh example-file.org pdf~ steps:
 
 
-1. calls in no-gui emacs, the ~convert-file-with-asciimath-to-file-with-tex.el~ which does one step, calls
+1. In no-gui emacs, invokes the ~convert-file-with-asciimath-to-file-with-tex.el~ which is a wrapper to call:
    - ~asciimath2tex-node.sh~
-     - takes   input  named ~example-file.org~,     the      org file with asciimath
-     - creates output named ~example-file.tex.org~, the same org file with tex math (converted from asciimath)
+     - it      takes   input  named ~example-file.org~,     the      org file with asciimath
+     - then it creates output named ~example-file.tex.org~, the same org file with tex math (converted from asciimath)
 2. IF the optional ~pdf~ argument is passed, then
-   - in no-gui emacs, calls ~org-latex-export-to-pdf~, which does the following
-     - takes input from the last output, ~example-file.tex.org~, the org file with tex math
-     - exports the input into pdf in 2 steps:
-       - 1. from the ~.tex.org~ file, creates the ~example-file.tex.tex~, equivalent of the input org file, but all in tex
-       - 2. frin the ~.tex.tex~ file, creates the ~example-file.tex.pdf~, the resulting PDF file. This is done internally, using the ~latexpdf~ executable (I think).
+   - In no-gui emacs, invokes the emacs org function ~org-latex-export-to-pdf~, which does the following:
+     - it      takes   the input from the last output, ~example-file.tex.org~, the org file with tex math
+     - then it exports the input into pdf in 2 steps:
+       - 1. from the ~.tex.org~ file, creates the ~example-file.tex.tex~, an equivalent of the input org file, but all in tex
+       - 2. from the ~.tex.tex~ file, creates the ~example-file.tex.pdf~, the resulting PDF file. This invokes the ~latexpdf~ executable (I think).
