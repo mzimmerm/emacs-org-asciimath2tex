@@ -1,11 +1,13 @@
 * TL;DR
 
 1. You have an Org file, named ~my-math-text.org~ with some math formulas written in asciimath; the formulas are delimited by backquotes like this `AA a in A`
-2. Clone or copy this project to your system, so the top directory is ~emacs-org-asciimath2tex~. Run the following commands:
-3. ~cd emacs-org-asciimath2tex~
-4. ~. ./setenv.sh~
-5. ~convert-org-with-asciimath-to-tex-or-pdf.sh my-math-text.org  pdf~
-6. Result in ~my-math-text.tex.pdf~
+2. Clone or copy this project to your system, so the top directory is ~emacs-org-asciimath2tex~.
+3. Install the prerequsits software.
+4. Run the following commands:
+   1. ~cd emacs-org-asciimath2tex~
+   2. ~. ./setenv.sh~
+   3. ~convert-org-with-asciimath-to-tex-or-pdf.sh my-math-text.org  pdf~
+5. The org file converted to PDF is in ~my-math-text.tex.pdf~
 
 
 * Purpose of this project, the ~emacs-org-asciimath2tex~
@@ -28,7 +30,7 @@ Paragraphs below describe how to use the script.
 This project requires two elements to be installed
 
 1. ~npm~, with the npm based library ~asciimath2tex~ installed
-2. Reasonable recent ~emacs~ with ~org-mode~. Recent emacses (say, versions from 2020 and after) include org-mode.
+2. Reasonable recent ~emacs~ with ~org-mode~. Recent emacs (say, versions from 2020 and after) include org-mode.
 
 
 Below we describe their installation in broad terms.
@@ -98,7 +100,7 @@ The directory ~example~ contains the ~example-file.org~, a sample org file with 
 It also contains the sample example how to convert and export the sample file. This is the ~run-example-file-export-to-pdf.sh~ (it is merely a thin wrap around the utility ~convert-org-with-asciimath-to-tex-or-pdf.sh~).
 
 
-* What this utilitity does step by step
+* What this utility does step by step
 
 ~convert-org-with-asciimath-to-tex-or-pdf.sh example-file.org pdf~ steps:
 
