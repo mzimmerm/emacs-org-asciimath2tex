@@ -1,0 +1,54 @@
+* Introduction
+
+This is a simple org file, containing asciimath.
+
+** Problem
+
+Org does not have a direct method to export this file to PDF (because ascimath is there literally).
+
+** Solution
+
+I wrote a script ~convert-asciimath-in-org-to-tex.sh~ which converts the contained asciimath snippets to tex, saves this file with extension ~.tex.org~, then exports to tex and/or pdf. 
+
+Then we can use regular org-export-to-pdf to convert the org file to PDF with latex.
+
+** Formatting asciimath
+
+*For the conversion and export to work, the asciimath text must be in backquotes.*
+
+Take care of proper backquotes ending, although missing them does not cause any damage apart from incorrect export.
+
+
+* Some asciimath examples
+
+This file is testing the process on some math formulas examples
+
+
+This line should be a tex paragraph.
+
+
+Asciimath Ex1: Single line matrix in asciimath
+
+$M = \left ( \begin{matrix} 1 & 2 \\ 3 & 4 \end{matrix} \right )$
+
+Asciimath Ex2: Single line subset asciimath
+
+$A \subseteq B$
+
+Asciimath Ex3: Inline $A \subseteq B$ from "Inline" to here it should be one line.
+
+Asciimath Ex4: Multi line matrix in asciimath 1:
+
+$M = \left ( \begin{matrix} 1 & 2 \\ 3 & 4 \end{matrix} \right )$
+
+
+Asciimath Ex5: The line below contains Tex matrix, formatted for readability in ~.tex~ file:
+
+$$M = \left ( \begin{matrix}
+1.1 & 2.2 \\
+3.3 & 4.4 \\
+5.5 & 6.6
+\end{matrix} \right )$$
+
+
+end of org file testing 'emacs-org-asciimath2tex'

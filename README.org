@@ -1,0 +1,105 @@
+* Purpose of emacs-org-asciimath2tex
+
+The purpose is to enable writing math formulas in asciimath in Emacs Org documents, by converting the math formulas to tex, and exporting the Org documents to tex and pdf.
+
+** Context
+
+Asciimath can be used in Emacs Org documents. Export to HTML is supported by the , but there is currently no support of exporting Org with Asciimath to tex or pdf.
+
+
+* Core utility of this project: the ~convert-org-with-asciimath-to-tex-or-pdf.sh~
+
+The core utility of this project is ~convert-org-with-asciimath-to-tex-or-pdf.sh~.
+
+Paragraphs below describe how to use it.
+
+* Dependencies and prerequisits and their installation
+
+This project requires two elements to be installed
+
+1. ~npm~, with the npm based library ~asciimath2tex~ installed
+2. Reasonable recent ~emacs~ with ~org-mode~. Recent emacses (say, versions from 2020 and after) include org-mode.
+
+
+Below we describe their installation in broad terms.
+
+** Installing npm and npm package asciimath2tex
+
+Use your system package manager to install ~nmp~, then run ~npm install asciimath2tex~
+
+See https://www.npmjs.com/package/asciimath2tex
+
+** Installing emacs with org
+
+Use your system package manager to install ~emacs~
+
+ 
+* Setting environment variable ~EMACS_ORG_ASCIIMATH2TEX~
+
+Before running any executable from this project, user *must set* the shell variable ~EMACS_ORG_ASCIIMATH2TEX~.
+
+This is supported by one of two methods:
+
+** Set ~EMACS_ORG_ASCIIMATH2TEX~ for one console session
+
+Source the file ~setenv.sh~ as follows
+
+#+begin_src shell
+  # Change to directory this project was checked out to or copied to,
+  # then run:
+  . ./setenv.sh
+
+#+end_src
+
+** Set ~EMACS_ORG_ASCIIMATH2TEX~ long-term
+
+#+begin_src shell
+  # ### Long term recommendation for using this utility ###
+  #
+  #  Add to your shell init file the lines below starting with 'export',
+  #    and replace the string "$(pwd)" with the full path of the directory
+  #    where this project was checked out, for example with
+  #    "~/software/emacs-org-asciimath2tex".
+
+  export EMACS_ORG_ASCIIMATH2TEX
+  EMACS_ORG_ASCIIMATH2TEX="$(pwd)"
+  PATH="$PATH:$EMACS_ORG_ASCIIMATH2TEX"
+#+end_src
+
+
+* Running the utility (conversion and export)
+
+Once the setup described above is ready, we can export an org file with asciimath to tex and pdf.
+
+An org file with asciimath named ~example-file.org~ is converted to pdf by running
+
+#+begin_src shell
+
+   # Change directory where the ~org~ file we are converting is located.
+   # The argument ~pdf~ is OPTIONAL but we want it most of the time.
+   convert-org-with-asciimath-to-tex-or-pdf.sh example-file.org  pdf
+
+#+end_src
+
+* An example Org file with asciimath
+
+The directory ~example~ contains the ~example-file.org~, a sample org file with asciimath.
+
+It also contains the sample example how to convert and export the sample file. This is the ~run-example-file-export-to-pdf.sh~ (it is merely a thin wrap around the utility ~convert-org-with-asciimath-to-tex-or-pdf.sh~).
+
+
+* What this utilitity does step by step
+
+~convert-org-with-asciimath-to-tex-or-pdf.sh~ steps:
+
+
+1. calls in no-gui emacs, the ~convert-file-with-asciimath-to-file-with-tex.el~ which does one step, calls
+   - ~asciimath2tex-node.sh~
+     - takes   input  named ~example-file.org~,     the      org file with asciimath
+     - creates output named ~example-file.tex.org~, the same org file with tex math (converted from asciimath)
+2. IF the optional ~pdf~ argument is passed, then
+   - in no-gui emacs, calls ~org-latex-export-to-pdf~, which does the following
+     - takes input from the last output, ~example-file.tex.org~, the org file with tex math
+     - exports the input into pdf in 2 steps:
+       - 1. from the ~.tex.org~ file, creates the ~example-file.tex.tex~, equivalent of the input org file, but all in tex
+       - 2. frin the ~.tex.tex~ file, creates the ~example-file.tex.pdf~, the resulting PDF file. This is done internally, using the ~latexpdf~ executable (I think).

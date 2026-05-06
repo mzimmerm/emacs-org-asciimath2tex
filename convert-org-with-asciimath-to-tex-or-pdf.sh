@@ -60,7 +60,7 @@ echo "=== Running convert of .org (with asciimath) to .tex.org (org with tex) ==
 # that converts asciimath to tex in the file ~$input_ascm_org~
 emacs \
     --batch \
-    --load ~/bin/convert-file-with-asciimath-to-file-with-tex.el \
+    --load "${EMACS_ORG_ASCIIMATH2TEX}/convert-file-with-asciimath-to-file-with-tex.el" \
     --eval "(my/convert-file-with-asciimath-to-file-with-tex \"$input_ascm_org\" \"$output_tex_org\")"
 
 
